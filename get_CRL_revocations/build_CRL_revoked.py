@@ -1,20 +1,25 @@
 from urlparse import urlparse
 import os.path
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, Value
 import json
 import sys
+import time
 
 WORKERS = 16
 INFILE = '../certs_using_crl.json'
 CRL = 'megaCRL'
 OUTFILE = 'revokedCRLCerts/certs'
 
-def doWork(i, megaCRL_org, megaCRL_CN):
+def doWork(i, q, megaCRL_org, megaCRL_CN, check_finish):
     print('starting worker ' + str(i))
+    num = 0;
     with open(OUTFILE + str(i), 'w') as out:
         while True:
             try:
-                cert = json.loads(q.get())
+                if check_finish.value and q.empty():
+                    break
+                cert = json.loads(q.get(timeout=1))
+                num += 1;
                 serial = int(cert['parsed']['serial_number'])
                 issuer = cert['parsed']['issuer']
             except:
@@ -29,6 +34,9 @@ def doWork(i, megaCRL_org, megaCRL_CN):
                 CN = 'unknown'
             if(isRevoked(megaCRL_org, megaCRL_CN, org, CN, serial)):
                 out.write(json.dumps(cert) + '\n')
+            if num % 100000 == 0:
+                print("worker %d handles %d certifications" %(i, num))
+        print("worker %d exit" %i)
 
 def isRevoked(megaCRL_org, megaCRL_CN, org, CN, serial):
     if org in megaCRL_org:
@@ -63,10 +71,12 @@ def buildDict():
 
 if __name__ == '__main__':
     print('building megaCRL...')
+    check_finish = Value('i', 0)
     megaCRL_CN, megaCRL_org = buildDict()
     q = Queue(WORKERS * 16)
+    #q = Queue()
     for i in range(WORKERS):
-        p = Process(target=doWork, args=(i, megaCRL_org, megaCRL_CN, ))
+        p = Process(target=doWork, args=(i, q, megaCRL_org, megaCRL_CN, check_finish))
         p.start()
     try:
         ctr = 0
@@ -75,5 +85,6 @@ if __name__ == '__main__':
             ctr += 1
             if(ctr % 10000 == 0):
                 print(str(ctr) + " certificates processed")
+        check_finish.value = 1
     except KeyboardInterrupt:
         sys.exit(1)
