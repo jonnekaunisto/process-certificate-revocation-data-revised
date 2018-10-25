@@ -97,7 +97,7 @@ and `cat final_revoked/*.json > ../final_revoked.json` to combine the results of
 workers into a single file. You can see how your results match against mine by comparing
 against [this file](https://drive.google.com/file/d/0B_ImpEaqYaA8eHVlTnJ4cW9lclk/view?usp=sharing).
 
-2. Use the command `node ./build_filer.js --max_old_space_size=32768 > filter` to assemble
+2. Use the command `node ./build_filter.js --max_old_space_size=32768 > filter` to assemble
 the final filter. Be sure to change the `REVOKED` and `UNREVOKED` constants to reflect
 accurately. **(acknowledgements to James Larisch for the build_filter.js code)**
 
