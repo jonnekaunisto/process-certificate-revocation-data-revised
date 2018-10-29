@@ -35,23 +35,27 @@ while (line = liner.next()) {
   }
 }
 
+var start = new Date()
 let mlbf = new MLBFilter(REVOKED, UNREVOKED, revoked, unrevoked, FP_RATE, FP1_RATE);
-// console.log(mlbf.toJSON());
+console.log(mlbf.toJSON());
+var end = new Date() - start
+console.info('Build MLBFilter time: %dms', end)
 
+var start = new Date()
 error = 0
 revoked.forEach(function(x){
   // contains: false means in S, true means in R
-  // assert(mlbf.contains(x));
   if (mlbf.contains(x) == false) {
     error += 1;
   }
 });
 
 unrevoked.forEach(function(x){
-  // assert(!mlbf.contains(x));
   if (mlbf.contains(x) == true) {
     error += 1;
   }
 });
 
-console.log(error)
+var end = new Date() - start
+console.log('Error Number: %d, error rate %f', error, error/(REVOKED+UNREVOKED))
+console.info('Query time: %dms', end)
