@@ -3,8 +3,8 @@ const assert = require('assert');
 const MLBFilter = require("multi-level-bloom-filter-js");
 const LineByLine = require("n-readlines");
 
-const REVOKED = 22024;
-const UNREVOKED = 2977976;
+const REVOKED = 81237086;
+const UNREVOKED = 10706011;
 const FP_RATE = 0.5;
 const FP1_RATE = REVOKED * Math.sqrt(FP_RATE) / UNREVOKED;
 const REVOKED_FILENAME = '../final_revoked.json';
