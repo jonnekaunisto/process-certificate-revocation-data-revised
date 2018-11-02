@@ -1,6 +1,6 @@
 import json
 
-INFILE_NAME = "../certificates.json"
+INFILE_NAME = "../data/censys2/certificates.json"
 crl_outfile = open("CRL_servers", "w")
 cert_crl_outfile = open("../certs_using_crl.json", "w")
 cert_nocrl_outfile = open("../certs_without_crl.json", "w")
@@ -10,8 +10,8 @@ INDICATOR  = 1000000
 INDICATOR_STR = "M"
 
 def hasCRL(cert):
-    if "extensions" in cert["parsed"]:
-        return "crl_distribution_points" in cert["parsed"]["extensions"]
+    if "crl_distribution_points" in cert and len(cert["crl_distribution_points"])>0:
+        return True
     return False
 
 with open(INFILE_NAME, "r") as f:
@@ -25,7 +25,7 @@ with open(INFILE_NAME, "r") as f:
         cert = json.loads(line)
         if hasCRL(cert):
             cert_crl_outfile.write(json.dumps(cert) + '\n')
-            for crl in cert["parsed"]["extensions"]["crl_distribution_points"]:
+            for crl in cert["crl_distribution_points"]:
                 crl_outfile.write(crl + '\n')
         else:
             cert = json.loads(line)

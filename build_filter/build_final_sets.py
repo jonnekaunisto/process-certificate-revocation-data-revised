@@ -19,7 +19,7 @@ def doWork(i, q, revokedDict, check_finish):
             break
         try:
             cert = json.loads(q.get(timeout=1))
-            fingerprint = cert['parsed']['fingerprint_sha256']
+            fingerprint = cert['fingerprint_sha256']
         except:
             continue
         if(fingerprint in revokedDict):
@@ -38,7 +38,7 @@ def buildRevokedDict():
                 print(str(ctr) + " certs added to dict")
         try:
             cert = json.loads(line)
-            fingerprint = cert['parsed']['fingerprint_sha256']
+            fingerprint = cert['fingerprint_sha256']
             revokedDict[fingerprint] = True
         except ValueError:
             pass
@@ -48,7 +48,7 @@ def buildRevokedDict():
                 print(str(ctr) + " certs added to dict")
         try:
             cert = json.loads(line)
-            fingerprint = cert['parsed']['fingerprint_sha256']
+            fingerprint = cert['fingerprint_sha256']
             revokedDict[fingerprint] = True
         except ValueError:
             pass

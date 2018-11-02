@@ -5,7 +5,7 @@ import json
 import sys
 import time
 
-WORKERS = 16
+WORKERS = 256
 INFILE = '../certs_using_crl.json'
 CRL = 'megaCRL'
 OUTFILE = 'revokedCRLCerts/certs'
@@ -20,8 +20,8 @@ def doWork(i, q, megaCRL_org, megaCRL_CN, check_finish):
                     break
                 cert = json.loads(q.get(timeout=1))
                 num += 1;
-                serial = int(cert['parsed']['serial_number'])
-                issuer = cert['parsed']['issuer']
+                serial = int(cert['serial_number'])
+                issuer = cert['issuer']
             except:
                 continue # skip to next certificate
             try:

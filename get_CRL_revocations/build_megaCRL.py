@@ -3,7 +3,7 @@ import OpenSSL
 import json
 import os
 
-WORKERS = 4
+WORKERS = 16
 outfile = 'megaCRL'
 inpath = 'raw_CRLs/'
 

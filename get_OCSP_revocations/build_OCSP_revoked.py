@@ -8,7 +8,7 @@ from asn1crypto import core, ocsp
 import base64
 import time
 
-workers = 16
+workers = 64
 outfile = './OCSP_revoked/certs'
 infile = '../certs_without_crl.json'
 
@@ -31,14 +31,15 @@ def doWork(i, q, check_finish):
             if check_finish.value and q.empty():
                 break
             cert = json.loads(q.get(timeout=1))
-            if(cert['parsed']['extensions']['authority_info_access']['ocsp_urls']):
-                urlList = cert['parsed']['extensions']['authority_info_access']['ocsp_urls']
+            if('ocsp_urls' in cert and len(cert['ocsp_urls'])>0):
+                urlList = cert['ocsp_urls']
                 url = urlList[0].rstrip('/').lstrip(' ')
                 if(issuerCerts.get(url)): # only check if we have the issuer cert
                     if(isRevoked(url, cert['raw'])):
+                        print('revoked...')
                         out.write(json.dumps(cert) + '\n')
-        except:
-            pass
+        except Exception as e:
+            print("Error: ", str(e))
     print("worker %d exit" %i)
 
 def isRevoked(url, rawCert):
