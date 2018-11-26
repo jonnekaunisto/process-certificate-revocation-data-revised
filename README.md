@@ -86,7 +86,7 @@ vast majority of OCSP-only certificates are issued by them. After the script com
 combine the results of each worker into a final output file with
 `cat OCSP_revoked/certs* > ../final_OCSP_revoked.json`.
 
-### Part D: Building The Filter
+### Part D: Generate final revoked and unrevoked certification fingerprint
 0. Set `build_filter` as the working directory. This folder contains all scripts for Part D.
 Make subdirectories `final_unrevoked` and `final_revoked`.
 
@@ -94,12 +94,5 @@ Make subdirectories `final_unrevoked` and `final_revoked`.
 set of all revoked certificates and all valid certificates. This script uses multiprocessing,
 so after running the script you will need to use `cat final_unrevoked/*.json > ../final_unrevoked.json`
 and `cat final_revoked/*.json > ../final_revoked.json` to combine the results of the individual
-workers into a single file. You can see how your results match against mine by comparing
-against [this file](https://drive.google.com/file/d/0B_ImpEaqYaA8eHVlTnJ4cW9lclk/view?usp=sharing).
+workers into a single file. Finally use `sort -u final_revoked.json > final_revoked.json` and `sort -u final_unrevoked.json > final_unrevoked.json` to remove potentical duplicate ones.
 
-2. Use the command `node --max_old_space_size=32768 ./build_filter.js  > filter` to assemble
-the final filter. Be sure to change the `REVOKED` and `UNREVOKED` constants to reflect
-accurately. **(acknowledgements to James Larisch for the build_filter.js code)**
-
-## Acknowledgements 
-Thanks to Eric Rescorla, J.C. Jones, James Larisch, the CRLite research team and the Mozilla Cryptography Engineering team.
