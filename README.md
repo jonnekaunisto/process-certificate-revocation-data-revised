@@ -1,7 +1,4 @@
-This collection of tools is designed to assemble a cascading
-bloom filter containing all TLS certificate revocations, as described
-in this [CRLite paper.](http://www.ccs.neu.edu/home/cbw/static/pdf/larisch-oakland17.pdf)
-
+This collection of tools is designed to preprocess certificates, classify two .
 These tools were built from scratch, using the original CRLite research code as a design reference and closely following the documentation in their paper. 
 
 ## Dependancies
