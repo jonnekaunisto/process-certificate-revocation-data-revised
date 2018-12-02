@@ -1,14 +1,13 @@
-This collection of tools is designed to preprocess certificates, classify two .
-These tools were built from scratch, using the original CRLite research code as a design reference and closely following the documentation in their paper. 
+This collection of tools is designed to download certificates from Censys, classify them into revoked and non-revoked.
+This tool is largely based on casebenton's github (https://github.com/casebenton/certificate-revocation-analysis). The main improvement is to download Censys database using Google BigQuery and also solve several bugs. These tools were built from scratch, using the original CRLite research code as a design reference and closely following the documentation in their paper. 
 
 ## Dependancies
 1. A [Censys](https://censys.io) Researcher Account (for downloading certificates)
 2. **About 3 terabytes of space to store certificates and associated data**
-3. Node
-4. Python 2 & Python 3 (default is to use Python 2 except when explicitly noted)
-5. Aria2c (or wget or Curl)
-6. pyopenssl (at least version 16.1.0)
-7. Lots of patience, as many of the scripts take several hours even with multiprocessing
+3. Python 2 & Python 3 (default is to use Python 2 except when explicitly noted)
+4. Aria2c (or wget or Curl)
+5. pyopenssl (at least version 16.1.0)
+6. Lots of patience, one of the scripts take two days to fininsh.
 
 ## Instructions
 ### Part A: Obtaining all NSS-trusted Certificates
@@ -26,7 +25,7 @@ FROM certificates.certificates
 WHERE validation.nss.valid = TRUE
 ```
 
-![Screenshot](Censys_data_export.png "Screenshot")
+![Screenshot](Censys_export.png "Screenshot")
 
 2. Download the exported certificates, which will be provided in several hundred
 files. The recommended method is to copy-paste the provided download URLs into
