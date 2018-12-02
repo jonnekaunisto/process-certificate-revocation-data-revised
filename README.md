@@ -12,7 +12,7 @@ This tool is largely based on casebenton's github (https://github.com/casebenton
 ## Instructions
 ### Part A: Obtaining 30 Million NSS-trusted Certificates 
 1. After obtaining a researcher account on [Censys](https://censys.io),
-perform the following SQL on Google Bigquery to collect 30 million valid NSS-trusted certificates.
+perform the following SQL on Google BigQuery to collect 30 million valid NSS-trusted certificates.
 ```
 SELECT raw, parsed.fingerprint_sha256, 
 parsed.extensions.crl_distribution_points, 
