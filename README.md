@@ -14,8 +14,11 @@ This tool is largely based on casebenton's github (https://github.com/casebenton
 1. After obtaining a researcher account on [Censys](https://censys.io),
 perform the following SQL on Google Bigquery to collect 30 million valid NSS-trusted certificates.
 ```
-SELECT raw, parsed.fingerprint_sha256, parsed.extensions.crl_distribution_points, parsed.extensions.authority_info_access.ocsp_urls, parsed.serial_number, 
-parsed.issuer FROM `censys-io.certificates_public.certificates` 
+SELECT raw, parsed.fingerprint_sha256, 
+parsed.extensions.crl_distribution_points, 
+parsed.extensions.authority_info_access.ocsp_urls, 
+parsed.serial_number, parsed.issuer 
+FROM `censys-io.certificates_public.certificates` 
 WHERE validation.nss.valid = TRUE limit 30000000;
 ```
 ![Screenshot](Censys_export.png "Screenshot")
