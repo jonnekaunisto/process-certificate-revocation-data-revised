@@ -3,7 +3,7 @@ This tool is largely based on casebenton's github (https://github.com/casebenton
 
 ## Dependancies
 1. A [Censys](https://censys.io) Researcher Account (for downloading certificates)
-2. **About 100GB of space to store certificates and associated data**
+2. **About 100GB(30 Million certificates) of space to store certificates and associated data**
 3. Python 2 & Python 3 (default is to use Python 2 except when explicitly noted)
 4. Aria2c (or wget or Curl)
 5. pyopenssl (at least version 16.1.0)
