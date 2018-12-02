@@ -7,7 +7,7 @@ This tool is largely based on casebenton's github (https://github.com/casebenton
 3. Python 2 & Python 3 (default is to use Python 2 except when explicitly noted)
 4. Aria2c (or wget or Curl)
 5. pyopenssl (at least version 16.1.0)
-6. Lots of patience, one of the scripts take two days to fininsh.
+6. Lots of patience, if you also deal with 30 Million datas, you need to spend more than three days to download and run scripts.
 
 ## Instructions
 ### Part A: Obtaining all NSS-trusted Certificates
