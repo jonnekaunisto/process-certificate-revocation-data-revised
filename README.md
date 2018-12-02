@@ -1,5 +1,5 @@
 This collection of tools is designed to download certificates from Censys, classify them into revoked and non-revoked.
-This tool is largely based on casebenton's github (https://github.com/casebenton/certificate-revocation-analysis). The main improvement is to download Censys database using Google BigQuery and also solve several critical bugs. These tools were built from scratch, using the original CRLite research code as a design reference and closely following the documentation in their paper. 
+This tool is largely based on casebenton's github (https://github.com/casebenton/certificate-revocation-analysis). The main improvement is to download Censys database using Google BigQuery and also solve several critical bugs.
 
 ## Dependancies
 1. A [Censys](https://censys.io) Researcher Account (for downloading certificates)
