@@ -10,7 +10,7 @@ This tool is largely based on casebenton's github (https://github.com/casebenton
 6. Lots of patience, if you also deal with 30 Million datas, you need to spend more than three days to download and run scripts.
 
 ## Instructions
-### Part A: Obtaining all NSS-trusted Certificates
+### Part A: Obtaining 30 Million NSS-trusted Certificates 
 1. After obtaining a researcher account on [Censys](https://censys.io),
 perform the following SQL on Google Bigquery to collect 30 million valid NSS-trusted certificates.
 ```
@@ -73,5 +73,5 @@ Make subdirectories `final_unrevoked` and `final_revoked`.
 set of all revoked certificates and all valid certificates. This script uses multiprocessing,
 so after running the script you will need to use `cat final_unrevoked/*.json > ../final_unrevoked.json`
 and `cat final_revoked/*.json > ../final_revoked.json` to combine the results of the individual
-workers into a single file. Finally use `sort -u final_revoked.json > final_revoked.json` and `sort -u final_unrevoked.json > final_unrevoked.json` to remove potentical duplicate ones.
+workers into a single file. Finally use `sort -u final_revoked.json > final_revoked.json` and `sort -u final_unrevoked.json > final_unrevoked.json` to remove potentical duplicates.
 
