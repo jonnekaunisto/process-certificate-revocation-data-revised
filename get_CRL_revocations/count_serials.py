@@ -3,6 +3,7 @@ import json
 crlInfileName = 'megaCRL'
 
 print('reading megaCRL...')
+
 megaCRL = {}
 crlFile = open(crlInfileName, 'r')
 certCtr = 0
