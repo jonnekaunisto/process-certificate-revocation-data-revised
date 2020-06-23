@@ -16,7 +16,7 @@ def doWork(i, revokedDict):
     unrev_out = open(unrevoked_outfile + str(i) + '.json', 'w')
     while True:
         cert = json.loads(q.get())
-        fingerprint = cert['parsed']['fingerprint_sha256']
+        fingerprint = cert['fingerprint_sha256']
         if(fingerprint in revokedDict):
             rev_out.write(fingerprint + '\n')
         else:
@@ -33,7 +33,7 @@ def buildRevokedDict():
                 print(str(ctr) + " certs added to dict")
         try:
             cert = json.loads(line)
-            fingerprint = cert['parsed']['fingerprint_sha256']
+            fingerprint = cert['fingerprint_sha256']
             revokedDict[fingerprint] = True
         except ValueError:
             pass
@@ -43,7 +43,7 @@ def buildRevokedDict():
                 print(str(ctr) + " certs added to dict")
         try:
             cert = json.loads(line)
-            fingerprint = cert['parsed']['fingerprint_sha256']
+            fingerprint = cert['fingerprint_sha256']
             revokedDict[fingerprint] = True
         except ValueError:
             pass
